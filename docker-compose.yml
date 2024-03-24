@@ -3,8 +3,8 @@ services:
   mongo_primary:
     image: mongo
     ports:
-      - "27017:27017"
-    command: mongod --replSet "rs0"
+      - "2717:2717"
+    command: mongod --port 2717 --replSet "rs0"
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
@@ -18,9 +18,9 @@ services:
 
   mongo_secondary-1:
     image: mongo
-    command: mongod --replSet "rs0"
+    command: mongod --port 2727 --replSet "rs0"
     ports:
-      - "27018:27107"
+      - "2727:2727"
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
@@ -31,9 +31,9 @@ services:
 
   mongo_secondary-2:
     image: mongo
-    command: mongod --replSet "rs0"
+    command: mongod --port 2737 --replSet "rs0"
     ports:
-      - "27019:27017"
+      - "2737:2737"
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
