@@ -38,3 +38,7 @@ A `setup-rs` service uses `setup.sh` to configure the replica set with `replicaS
 ## Troubleshooting
 
 If you encounter connection issues, ensure that the Docker services are up and that the `/etc/hosts` file contains the correct mappings.
+
+## References
+
+[Replication in MongoDB](https://www.mongodb.com/docs/manual/replication/)
