@@ -1,60 +1,65 @@
-version: "1.0.0"
+version: "3"
+
 services:
-  mongo_primary:
+  mdbrs0p:
+    container_name: mdbrs0p
     image: mongo
     ports:
       - "2717:2717"
-    command: mongod --port 2717 --replSet "rs0"
+    command: mongod --replSet rs0 --port 2717 --dbpath /data/db
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
     networks:
-      - mongo_replica
+      - mdbrs0
     volumes:
-      - ./data/primary:/data/db
+      - ./data/mdbrs0p:/data/db
     depends_on:
-      - "mongo_secondary-1"
-      - "mongo_secondary-2"
+      - "mdbrs0s1"
+      - "mdbrs0s2"
 
-  mongo_secondary-1:
+  mdbrs0s1:
+    container_name: mdbrs0s1
     image: mongo
-    command: mongod --port 2727 --replSet "rs0"
+    command: mongod --replSet rs0 --port 2727 --dbpath /data/db
     ports:
       - "2727:2727"
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
     networks:
-      - mongo_replica
+      - mdbrs0
     volumes:
-      - ./data/secondary-1:/data/db
+      - ./data/mdbrs0s1:/data/db
 
-  mongo_secondary-2:
+  mdbrs0s2:
+    container_name: mdbrs0s2
     image: mongo
-    command: mongod --port 2737 --replSet "rs0"
+    command: mongod --replSet rs0 --port 2737 --dbpath /data/db
     ports:
       - "2737:2737"
     environment:
       - MONGO_INITDB_REPLICASET=rs0
     restart: always
     networks:
-      - mongo_replica
+      - mdbrs0
     volumes:
-      - ./data/secondary-2:/data/db
+      - ./data/mdbrs0s2:/data/db
 
-  setup-rs:
+  mdbrs0setup:
+    container_name: mdbrs0setup
     image: "mongo-rs-setup"
     build: ./setup
     networks:
-      - mongo_replica
+      - mdbrs0
     depends_on:
-      - "mongo_primary"
+      - "mdbrs0p"
 
 volumes:
-  mongo_primary:
-  mongo_secondary-1:
-  mongo_secondary-2:
+  mdbrs0p:
+  mdbrs0s1:
+  mdbrs0s2:
 
 networks:
-  mongo_replica:
+  mdbrs0:
     driver: bridge

@@ -7,4 +7,4 @@ echo *******************************************************************
 sleep 10 | echo Sleeping
 
 # connect to the first container and execute the replica setup script
-mongosh "mongodb://mongo_primary:2717" --file replicaSet.js
+mongosh "mongodb://mdbrs0p:2717" --file replicaSet.js

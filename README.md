@@ -6,8 +6,8 @@ This README outlines the setup for a MongoDB replica set using Docker containers
 
 The `docker-compose.yml` includes three services:
 
-- `mongo_primary`: The primary MongoDB node.
-- `mongo_secondary-1` and `mongo_secondary-2`: The secondary MongoDB nodes.
+- `mdbrs0p`: The primary MongoDB node.
+- `mdbrs0s1` and `mdbrs0s2`: The secondary MongoDB nodes.
 
 Each service is configured with unique ports and volumes for data persistence. They are all part of the `mongo_replica` network, facilitating internal communication.
 
@@ -16,7 +16,7 @@ Each service is configured with unique ports and volumes for data persistence. T
 To connect to the replica set with MongoDB Compass, use the following URI:
 
 ```
-mongodb://mongo_primary:2717,mongo_secondary-1:2727,mongo_secondary-2:2737/?replicaSet=rs0
+mongodb://mdbrs0p:2717,mdbrs0s1:2727,mdbrs0s2:2737/?replicaSet=rs0
 ```
 
 ### DNS Resolution Workaround
@@ -24,9 +24,7 @@ mongodb://mongo_primary:2717,mongo_secondary-1:2727,mongo_secondary-2:2737/?repl
 Modify your `/etc/hosts` file to include:
 
 ```
-127.0.0.1 mongo_primary
-127.0.0.1 mongo_secondary-1
-127.0.0.1 mongo_secondary-2
+127.0.0.1 mdbrs0p mdbrs0s1 mdbrs0s2
 ```
 
 This directs connections from MongoDB Compass on your host machine to the Docker containers.
