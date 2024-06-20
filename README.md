@@ -1,6 +1,8 @@
-# MongoDB Replica Set Docker Configuration
+# MongoDB Replica Set
 
-This README outlines the setup for a MongoDB replica set using Docker containers for development environments.
+<p align="center">
+  <img src="https://www.mongodb.com/docs/manual/images/replica-set-read-preference-secondary.bakedsvg.svg" alt="replica set img" width="500"/>
+</p>
 
 ## Docker Compose Setup
 
